@@ -1,11 +1,15 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws IOException {
+        App app = new App();
+        app.start();
+    }
+
+    public void start() throws IOException {
         try {
             File file = new File("ciphertext.txt");
             Scanner input = new Scanner(file);
