@@ -1,12 +1,51 @@
-// Reference: https://www.baeldung.com/java-caesar-cipher
 public class ShiftCipher {
-    public String decrypt(String text, int key) {
+    private int key;
+    private String encryptedText;
+    private String decryptedText;
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public String getEncryptedText() {
+        return encryptedText;
+    }
+
+    public void setEncryptedText(String encryptedText) {
+        this.encryptedText = encryptedText;
+    }
+
+    public String getDecryptedText() {
+        return decryptedText;
+    }
+
+    public void setDecryptedText(String decryptedText) {
+        this.decryptedText = decryptedText;
+    }
+
+    public ShiftCipher(int key, String encryptedText) {
+        this.key = key;
+        this.encryptedText = encryptedText;
+    }
+
+    public ShiftCipher(String encryptedText) {
+        this.encryptedText = encryptedText;
+    }
+
+
+
+
+    public String decryptKnownKey() {
         StringBuilder result = new StringBuilder();
-        text = text.toUpperCase();
+        this.encryptedText = this.encryptedText.toUpperCase();
 
-        int shift = 26 - (key % 26);
+        int shift = 26 - (this.key % 26);
 
-        for (char c : text.toCharArray()) {
+        for (char c : this.encryptedText.toCharArray()) {
             if (c != ' ') {
                 result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
             }
@@ -15,18 +54,29 @@ public class ShiftCipher {
             }
         }
 
-        return result.toString();
+        this.decryptedText = result.toString();
+
+        return this.decryptedText;
+
     }
 
-    public String decryptExhaustiveKeySearch(String message) {
+    public String decryptExhaustiveKeySearch(String word) {
         String result = "";
+        int tempKey = 0;
+        word = word.toUpperCase();
 
         for (int i=1; i <= 26; i++) {
-            String temp = decrypt(message, i);
-            if (temp.contains("DONE"))
+            this.key = i;
+            String temp = decryptKnownKey();
+            if (temp.contains(word)) {
+                tempKey = i;
                 result = temp;
+            }
         }
 
-        return result;
+        this.key = tempKey;
+        this.decryptedText = result;
+
+        return this.decryptedText;
     }
 }
