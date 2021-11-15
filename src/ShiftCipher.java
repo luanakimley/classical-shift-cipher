@@ -1,12 +1,12 @@
 // Reference: https://www.baeldung.com/java-caesar-cipher
 public class ShiftCipher {
-    public String decipher(String message, int key) {
+    public String decipher(String text, int key) {
         StringBuilder result = new StringBuilder();
-        message = message.toUpperCase();
+        text = text.toUpperCase();
 
         int shift = 26 - (key % 26);
 
-        for (char c : message.toCharArray()) {
+        for (char c : text.toCharArray()) {
             if (c != ' ') {
                 result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
             }
@@ -20,10 +20,9 @@ public class ShiftCipher {
 
     public String decipherExhaustiveKeySearch(String message) {
         String result = "";
-        String temp;
 
         for (int i=1; i <= 26; i++) {
-            temp = decipher(message, i);
+            String temp = decipher(message, i);
             if (temp.contains("DONE"))
                 result = temp;
         }
