@@ -22,10 +22,12 @@ public class App {
             System.out.println("Cipher text 1: " + ciphertext1);
             System.out.println(shiftCipher.decipher(ciphertext1, 3));
 
+
             System.out.println("Cipher text 2: " + ciphertext2);
+            System.out.println(shiftCipher.decipherExhaustiveKeySearch(ciphertext2));
         }
         catch (NoSuchElementException e) {
-            System.out.println("That is not a cipher text.");
+            System.out.println("Your input must include 2 lines of cipher text.");
         }
 
     }
