@@ -39,7 +39,7 @@ public class ShiftCipher {
 
 
 
-    public String decryptKnownKey() {
+    public void decryptKnownKey() {
         StringBuilder result = new StringBuilder();
         this.encryptedText = this.encryptedText.toUpperCase();
 
@@ -56,18 +56,17 @@ public class ShiftCipher {
 
         this.decryptedText = result.toString();
 
-        return this.decryptedText;
-
     }
 
-    public String decryptExhaustiveKeySearch(String word) {
+    public void decryptExhaustiveKeySearch(String word) {
         String result = "";
         int tempKey = 0;
         word = word.toUpperCase();
 
         for (int i=1; i <= 26; i++) {
             this.key = i;
-            String temp = decryptKnownKey();
+            decryptKnownKey();
+            String temp = this.decryptedText;
             if (temp.contains(word)) {
                 tempKey = i;
                 result = temp;
@@ -77,6 +76,5 @@ public class ShiftCipher {
         this.key = tempKey;
         this.decryptedText = result;
 
-        return this.decryptedText;
     }
 }
