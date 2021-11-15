@@ -20,11 +20,11 @@ public class App {
             ShiftCipher shiftCipher = new ShiftCipher();
 
             System.out.println("Cipher text 1: " + ciphertext1);
-            System.out.println(shiftCipher.decipher(ciphertext1, 3));
+            System.out.println(shiftCipher.decrypt(ciphertext1, 3));
 
 
             System.out.println("Cipher text 2: " + ciphertext2);
-            System.out.println(shiftCipher.decipherExhaustiveKeySearch(ciphertext2));
+            System.out.println(shiftCipher.decryptExhaustiveKeySearch(ciphertext2));
         }
         catch (NoSuchElementException e) {
             System.out.println("Your input must include 2 lines of cipher text.");

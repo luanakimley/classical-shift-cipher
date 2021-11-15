@@ -1,6 +1,6 @@
 // Reference: https://www.baeldung.com/java-caesar-cipher
 public class ShiftCipher {
-    public String decipher(String text, int key) {
+    public String decrypt(String text, int key) {
         StringBuilder result = new StringBuilder();
         text = text.toUpperCase();
 
@@ -18,11 +18,11 @@ public class ShiftCipher {
         return result.toString();
     }
 
-    public String decipherExhaustiveKeySearch(String message) {
+    public String decryptExhaustiveKeySearch(String message) {
         String result = "";
 
         for (int i=1; i <= 26; i++) {
-            String temp = decipher(message, i);
+            String temp = decrypt(message, i);
             if (temp.contains("DONE"))
                 result = temp;
         }
