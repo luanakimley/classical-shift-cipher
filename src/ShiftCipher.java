@@ -1,8 +1,22 @@
 public class ShiftCipher {
+    // Fields
     private int key;
     private String encryptedText;
     private String decryptedText;
 
+    // Constructors
+
+    // for ShiftCipher with known key
+    public ShiftCipher(int key, String encryptedText) {
+        this.key = key;
+        this.encryptedText = encryptedText;
+    }
+    // for ShiftCipher with unknown key
+    public ShiftCipher(String encryptedText) {
+        this.encryptedText = encryptedText;
+    }
+
+    // Getters & Setters
     public int getKey() {
         return key;
     }
@@ -27,26 +41,20 @@ public class ShiftCipher {
         this.decryptedText = decryptedText;
     }
 
-    public ShiftCipher(int key, String encryptedText) {
-        this.key = key;
-        this.encryptedText = encryptedText;
-    }
-
-    public ShiftCipher(String encryptedText) {
-        this.encryptedText = encryptedText;
-    }
-
-
-
-
+    // Decrypt with known key
     public void decryptKnownKey() {
         StringBuilder result = new StringBuilder();
         this.encryptedText = this.encryptedText.toUpperCase();
 
+        /*
+         * use 26 - key instead of using negative keys so that it won't have a problem when looping back
+         * use '% 26' so shift won't be negative
+         */
+
         int shift = 26 - (this.key % 26);
 
         for (char c : this.encryptedText.toCharArray()) {
-            if (c != ' ') {
+            if (c != ' ') { // to preserve space characters
                 result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
             }
             else {
@@ -55,9 +63,9 @@ public class ShiftCipher {
         }
 
         this.decryptedText = result.toString();
-
     }
 
+    // Decrypt with exhaustive key search
     public void decryptExhaustiveKeySearch(String word) {
         String result = "";
         int tempKey = 0;
@@ -75,6 +83,5 @@ public class ShiftCipher {
 
         this.key = tempKey;
         this.decryptedText = result;
-
     }
 }
