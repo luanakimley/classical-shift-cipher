@@ -48,11 +48,12 @@ public class App {
                 File file = new File("ciphertext.txt");
                 Scanner input = new Scanner(file);
 
-                ShiftCipher shiftCipher = new ShiftCipher();
-
                 String ciphertext1 = input.nextLine();
+                ShiftCipher shiftCipher = new ShiftCipher(3, ciphertext1);
+
                 System.out.println("Cipher text 1: " + ciphertext1);
-                System.out.println(shiftCipher.decrypt(ciphertext1, 3));
+                shiftCipher.decryptKnownKey();
+                System.out.println(shiftCipher.getDecryptedText());
 
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
@@ -68,11 +69,14 @@ public class App {
                 File file = new File("ciphertext.txt");
                 Scanner input = new Scanner(file);
 
-                ShiftCipher shiftCipher = new ShiftCipher();
-
+                input.nextLine();
                 String ciphertext2 = input.nextLine();
+                ShiftCipher shiftCipher = new ShiftCipher(ciphertext2);
+
                 System.out.println("Cipher text 2: " + ciphertext2);
-                System.out.println(shiftCipher.decryptExhaustiveKeySearch(ciphertext2));
+                shiftCipher.decryptExhaustiveKeySearch("done");
+                System.out.println("Key: " + shiftCipher.getKey());
+                System.out.println(shiftCipher.getDecryptedText());
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
@@ -87,11 +91,12 @@ public class App {
                 String ciphertext3 = keyboard.nextLine();
 
 
-                ShiftCipher shiftCipher = new ShiftCipher();
+                ShiftCipher shiftCipher = new ShiftCipher(ciphertext3);
 
 
                 System.out.println("Cipher text 3-your own: " + ciphertext3);
-                System.out.println(shiftCipher.decrypt(ciphertext3, 3));
+                shiftCipher.decryptKnownKey();
+                System.out.println(shiftCipher.getDecryptedText());
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
@@ -103,12 +108,13 @@ public class App {
 
         try {
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("Enter a message you wish to decrpt using exhaustive key: ");
+            System.out.println("Enter a message you wish to decrypt using exhaustive key: ");
             String ciphertext4 = keyboard.nextLine();
 
-            ShiftCipher shiftCipher = new ShiftCipher();
+            ShiftCipher shiftCipher = new ShiftCipher(ciphertext4);
             System.out.println("Cipher text 4: " + ciphertext4);
-            System.out.println(shiftCipher.decryptExhaustiveKeySearch(ciphertext4));
+            shiftCipher.decryptExhaustiveKeySearch("");
+            System.out.println(shiftCipher.getDecryptedText());
         } catch (NoSuchElementException e) {
             System.out.println("Your input must include 2 lines of cipher text.");
         }
