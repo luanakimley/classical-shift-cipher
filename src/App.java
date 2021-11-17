@@ -13,9 +13,7 @@ public class App {
     }
 
     public void start() {
-
         menu();
-
     }
 
     public static void menu() {
