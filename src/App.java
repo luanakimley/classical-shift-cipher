@@ -17,15 +17,19 @@ public class App {
 
     }
 
-    public void menu() throws FileNotFoundException {
+    public static void menu() throws FileNotFoundException {
 
         Scanner keyboard = new Scanner(System.in);
         System.out.println("**** MENU ****");
         System.out.println("** OPTIONS **");
+        System.out.println("1. decrypt message\n" +
+                            "2. decrypt message exhaustive key\n"+
+                            "3. decrpyt your own message\n"+
+                            "4. decrpyt your own message using exhaustive key\n");
 
         int option = inputValidInt(1, 4, "Input option: ", "Invalid menu option");
 
-        while (option != 2) {
+        while (option != 5) {
             switch (option) {
                 case 1:
                     menuDecrypt();
@@ -35,9 +39,6 @@ public class App {
                     decryptYourOwnMessage();
                 case 4:
                     decryptYourOwnMessageUsingExhaustiveKey();
-
-
-
 
             }
         }
@@ -53,9 +54,11 @@ public class App {
                 String ciphertext1 = input.nextLine();
                 System.out.println("Cipher text 1: " + ciphertext1);
                 System.out.println(shiftCipher.decrypt(ciphertext1, 3));
+
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
+            menu();
 
 
         }
@@ -74,13 +77,14 @@ public class App {
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
+            menu();
 
         }
-        public static void decryptYourOwnMessage() {
+        public static void decryptYourOwnMessage() throws FileNotFoundException {
             System.out.println("**** DECRYPT YOUR OWN MESSAGE ****");
             try {
                 Scanner keyboard = new Scanner(System.in);
-                System.out.println("Enter a message you wish to decrpt: ");
+                System.out.println("Enter a message you wish to decrypt: ");
                 String ciphertext3 = keyboard.nextLine();
 
 
@@ -92,9 +96,10 @@ public class App {
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
+            menu();
 
     }
-    public static void decryptYourOwnMessageUsingExhaustiveKey() {
+    public static void decryptYourOwnMessageUsingExhaustiveKey() throws FileNotFoundException {
         System.out.println("**** DECRYPT EXHAUSTIVE KEY SEARCH MESSAGE ****");
 
         try {
@@ -108,6 +113,7 @@ public class App {
         } catch (NoSuchElementException e) {
             System.out.println("Your input must include 2 lines of cipher text.");
         }
+        menu();
     }
         public static int inputValidInt ( int min, int max, String prompt, String errorMessage)
         {
