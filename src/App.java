@@ -19,7 +19,6 @@ public class App {
 
     public static void menu() throws FileNotFoundException {
 
-        Scanner keyboard = new Scanner(System.in);
         System.out.println("**** MENU ****");
         System.out.println("** OPTIONS **");
         System.out.println("1. decrypt message\n" +
