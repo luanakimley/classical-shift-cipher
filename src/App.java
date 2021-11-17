@@ -1,51 +1,68 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         App app = new App();
         app.start();
 
     }
 
-    public void start() throws FileNotFoundException {
+    public void start() {
 
         menu();
 
     }
 
-    public static void menu() throws FileNotFoundException {
+    public static void menu() {
+            displayMenu();
+            try {
+                int option = inputValidInt(1, 5, "Input option: ", "Invalid menu option");
 
-        System.out.println("**** MENU ****");
-        System.out.println("** OPTIONS **");
-        System.out.println("1. decrypt message\n" +
-                            "2. decrypt message exhaustive key\n"+
-                            "3. decrpyt your own message\n"+
-                            "4. decrpyt your own message using exhaustive key\n");
-
-        int option = inputValidInt(1, 4, "Input option: ", "Invalid menu option");
-
-        while (option != 5) {
-            switch (option) {
-                case 1:
-                    menuDecrypt();
-                case 2:
-                    menuDecryptExhaustiveKeySearch();
-                case 3:
-                    decryptYourOwnMessage();
-                case 4:
-                    decryptYourOwnMessageUsingExhaustiveKey();
-
+                while (option != 5) {
+                    switch (option) {
+                        case 1:
+                            menuDecrypt();
+                            break;
+                        case 2:
+                            menuDecryptExhaustiveKeySearch();
+                            break;
+                        case 3:
+                            decryptYourOwnMessage();
+                            break;
+                        case 4:
+                            decryptYourOwnMessageUsingExhaustiveKey();
+                            break;
+                    }
+                    displayMenu();
+                    option = inputValidInt(1, 5, "Input option: ", "Invalid menu option");
+                }
+                System.out.println("Program ending - thank you");
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number!\n");
+                displayMenu();
             }
         }
-    }
-        public static void menuDecrypt () throws FileNotFoundException {
+
+        public static void displayMenu() {
+            System.out.println("**** MENU ****");
+            System.out.println("** OPTIONS **");
+            System.out.println("1. Decrypt message\n" +
+                    "2. Decrypt message exhaustive key\n"+
+                    "3. Decrypt your own message\n"+
+                    "4. Decrypt your own message using exhaustive key\n" +
+                    "5. Exit");
+        }
+
+        public static void menuDecrypt() {
             System.out.println("**** DECRYPT MESSAGE ****");
+            String fileName = "ciphertext.txt";
             try {
-                File file = new File("ciphertext.txt");
+                File file = new File(fileName);
                 Scanner input = new Scanner(file);
 
                 String ciphertext1 = input.nextLine();
@@ -57,16 +74,15 @@ public class App {
 
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
             }
-            menu();
-
-
         }
-        public static void menuDecryptExhaustiveKeySearch () throws FileNotFoundException {
+        public static void menuDecryptExhaustiveKeySearch(){
             System.out.println("**** DECRYPT EXHAUSTIVE KEY SEARCH MESSAGE ****");
-
+            String fileName = "ciphertext.txt";
             try {
-                File file = new File("ciphertext.txt");
+                File file = new File(fileName);
                 Scanner input = new Scanner(file);
 
                 input.nextLine();
@@ -79,20 +95,18 @@ public class App {
                 System.out.println(shiftCipher.getDecryptedText());
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found");
             }
-            menu();
-
         }
-        public static void decryptYourOwnMessage() throws FileNotFoundException {
+        public static void decryptYourOwnMessage(){
             System.out.println("**** DECRYPT YOUR OWN MESSAGE ****");
             try {
                 Scanner keyboard = new Scanner(System.in);
                 System.out.println("Enter a message you wish to decrypt: ");
                 String ciphertext3 = keyboard.nextLine();
 
-
                 ShiftCipher shiftCipher = new ShiftCipher(ciphertext3);
-
 
                 System.out.println("Cipher text 3-your own: " + ciphertext3);
                 shiftCipher.decryptKnownKey();
@@ -100,10 +114,9 @@ public class App {
             } catch (NoSuchElementException e) {
                 System.out.println("Your input must include 2 lines of cipher text.");
             }
-            menu();
-
     }
-    public static void decryptYourOwnMessageUsingExhaustiveKey() throws FileNotFoundException {
+
+    public static void decryptYourOwnMessageUsingExhaustiveKey() {
         System.out.println("**** DECRYPT EXHAUSTIVE KEY SEARCH MESSAGE ****");
 
         try {
@@ -118,8 +131,8 @@ public class App {
         } catch (NoSuchElementException e) {
             System.out.println("Your input must include 2 lines of cipher text.");
         }
-        menu();
     }
+
         public static int inputValidInt ( int min, int max, String prompt, String errorMessage)
         {
             Scanner keyboard = new Scanner(System.in);
