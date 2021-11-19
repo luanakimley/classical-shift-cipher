@@ -126,6 +126,16 @@ public class Menu {
 
     }
 
+    /**
+     * This method allows the user to input a number and checks if the number is
+     * in the range
+     *
+     * @param min minimum limit of numbers in the range
+     * @param max maximum limit of numbers in the range
+     * @param prompt prompt message
+     * @param errorMessage error message
+     * @return number entered
+     */
     public int inputValidInt ( int min, int max, String prompt, String errorMessage)
     {
         Scanner keyboard = new Scanner(System.in);
