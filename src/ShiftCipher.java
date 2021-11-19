@@ -88,7 +88,7 @@ public class ShiftCipher {
 
         for (char c : this.cipherText.toCharArray()) {
             if (c != ' ') { // to preserve space characters
-                result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
+                result.append((char) (((int) c + shift - 'A') % 26 + 'A')); // Modular arithmetic algorithm to decrypt text
             }
             else { // if character is space, add without modifying anything
                 result.append(c);
