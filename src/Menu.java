@@ -136,6 +136,7 @@ public class Menu {
                         String ciphertext1 = keyboard.nextLine();
                         System.out.println("Enter key:");
                         int key = keyboard.nextInt();
+                        keyboard.nextLine();
                         ShiftCipher sc1 = new ShiftCipher(key, ciphertext1);
                         sc1.decryptKnownKey();
                         System.out.println("Cipher text: " + sc1.getCipherText());
