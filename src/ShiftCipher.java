@@ -6,13 +6,21 @@ public class ShiftCipher {
 
     // Constructors
 
-    // for ShiftCipher with known key
+    /**
+     * ShiftCipher constructor for ShiftCipher with known key
+     * @param key key for decryption
+     * @param encryptedText text that needs to be decrypted
+     */
     public ShiftCipher(int key, String encryptedText) {
         this.key = key;
         this.encryptedText = encryptedText;
     }
 
-    // for ShiftCipher with unknown key
+
+    /**
+     * ShiftCipher constructor for ShiftCipher with unknown key
+     * @param encryptedText text that needs to be decrypted
+     */
     public ShiftCipher(String encryptedText) {
         this.encryptedText = encryptedText;
     }
@@ -58,7 +66,7 @@ public class ShiftCipher {
             if (c != ' ') { // to preserve space characters
                 result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
             }
-            else {
+            else { // if character is space, add without modifying anything
                 result.append(c);
             }
         }
@@ -83,5 +91,6 @@ public class ShiftCipher {
         this.key = tempKey;
         this.decryptedText = result;
     }
+
 
 }
