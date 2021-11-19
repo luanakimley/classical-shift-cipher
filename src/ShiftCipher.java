@@ -1,7 +1,7 @@
 public class ShiftCipher {
     // Fields
     private int key;
-    private String encryptedText;
+    private String cipherText;
     private String decryptedText;
 
     // Constructors
@@ -9,37 +9,47 @@ public class ShiftCipher {
     /**
      * ShiftCipher constructor for ShiftCipher with known key
      * @param key key for decryption
-     * @param encryptedText text that needs to be decrypted
+     * @param cipherText text that needs to be decrypted
      */
-    public ShiftCipher(int key, String encryptedText) {
+    public ShiftCipher(int key, String cipherText) {
         this.key = key;
-        this.encryptedText = encryptedText;
+        this.cipherText = cipherText;
     }
-
 
     /**
      * ShiftCipher constructor for ShiftCipher with unknown key
-     * @param encryptedText text that needs to be decrypted
+     * @param cipherText text that needs to be decrypted
      */
-    public ShiftCipher(String encryptedText) {
-        this.encryptedText = encryptedText;
+    public ShiftCipher(String cipherText) {
+        this.cipherText = cipherText;
     }
 
     // Getters & Setters
+
+    /**
+     * Returns the value of ShiftCipher key
+     * @return ShiftCipher key
+     */
     public int getKey() {
         return key;
     }
 
+
+    /**
+     * Changes ShiftCipher key to key
+     * @param key new key for ShiftCipher
+     */
     public void setKey(int key) {
         this.key = key;
     }
 
-    public String getEncryptedText() {
-        return encryptedText;
+    
+    public String getCipherText() {
+        return cipherText;
     }
 
-    public void setEncryptedText(String encryptedText) {
-        this.encryptedText = encryptedText;
+    public void setCipherText(String cipherText) {
+        this.cipherText = cipherText;
     }
 
     public String getDecryptedText() {
@@ -50,10 +60,12 @@ public class ShiftCipher {
         this.decryptedText = decryptedText;
     }
 
-    // Decrypt with known key
+    /**
+     * Decrypt cipher text with known key
+     */
     public void decryptKnownKey() {
         StringBuilder result = new StringBuilder();
-        this.encryptedText = this.encryptedText.toUpperCase();
+        this.cipherText = this.cipherText.toUpperCase();
 
         /*
          * use 26 - key instead of using negative keys so that it won't have a problem when looping back
@@ -62,7 +74,7 @@ public class ShiftCipher {
 
         int shift = 26 - (this.key % 26);
 
-        for (char c : this.encryptedText.toCharArray()) {
+        for (char c : this.cipherText.toCharArray()) {
             if (c != ' ') { // to preserve space characters
                 result.append((char) (((int) c + shift - 'A') % 26 + 'A'));
             }
@@ -74,7 +86,11 @@ public class ShiftCipher {
         this.decryptedText = result.toString();
     }
 
-    // Decrypt with exhaustive key search
+
+    /**
+     * Decrypt cipher text using exhaustive search (unknown key)
+     * @param word Word that is in the decrypted cipher text
+     */
     public void decryptExhaustiveKeySearch(String word) {
         String result = "";
         int tempKey = 0;
