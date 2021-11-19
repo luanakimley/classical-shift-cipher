@@ -43,15 +43,27 @@ public class ShiftCipher {
         this.key = key;
     }
 
-    
+
+    /**
+     * Returns cipher text
+     * @return cipher text
+     */
     public String getCipherText() {
         return cipherText;
     }
 
+    /**
+     * Changes cipher text to cipherText
+     * @param cipherText new cipher text
+     */
     public void setCipherText(String cipherText) {
         this.cipherText = cipherText;
     }
 
+    /**
+     * Returns decrypted text
+     * @return decrypted text
+     */
     public String getDecryptedText() {
         return decryptedText;
     }
