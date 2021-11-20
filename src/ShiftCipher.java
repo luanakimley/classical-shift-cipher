@@ -14,8 +14,6 @@ public class ShiftCipher {
     public ShiftCipher(int key, String cipherText) {
         if (key > 0)
             this.key = key;
-        if (key > 26)
-            this.key %= key;
         this.cipherText = cipherText;
     }
 
@@ -84,14 +82,17 @@ public class ShiftCipher {
 
             /*
              * use 26 - key instead of using negative keys so that it won't have a problem when looping back
+             * decrypting is the same as encrypting text using negative key
+             * encrypting text with shift of 3 is the same as decrypting text with key of 26 - 3 = 23
+             * used (this.key % 26) so if user enter number > 26 shift will not be negative
              */
 
             int shift = 26 - (this.key % 26);
 
-            for (char c : this.cipherText.toCharArray()) {
-                if (c != ' ') { // to preserve space characters
-                    result.append((char) (((int) c + shift - 'A') % 26 + 'A')); // Modular arithmetic algorithm to decrypt text
-                } else { // if character is space, add without modifying anything
+            for (char c : this.cipherText.toCharArray()) { // Loops through text by converting each letter to an Array
+                if (c != ' ') { // to preserve space characters by only encrypting non-space characters
+                    result.append((char) (((int) c + shift - 'A') % 26 + 'A')); // Modular arithmetic algorithm to encrypt text, uses % 26 to loop back to 'A'
+                } else { // if character is space, add without encrypting anything
                     result.append(c);
                 }
             }
@@ -108,11 +109,12 @@ public class ShiftCipher {
         String result = "";
         int tempKey = 0;
         word = word.toUpperCase();
-        for (int i=1; i <= 26; i++) {
+
+        for (int i=1; i <= 26; i++) { // Loops through all possible keys
             this.key = i;
             decryptKnownKey();
             String temp = this.decryptedText;
-            if (temp.contains(word)) {
+            if (temp.contains(word)) { // if the text contains word it is the answer
                 tempKey = i;
                 result = temp;
             }

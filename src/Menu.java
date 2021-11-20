@@ -113,7 +113,6 @@ public class Menu {
             System.out.println("Your file must include 2 lines of cipher text.");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-            mainMenu();
         }
     }
 
