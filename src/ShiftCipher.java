@@ -81,10 +81,9 @@ public class ShiftCipher {
 
         /*
          * use 26 - key instead of using negative keys so that it won't have a problem when looping back
-         * use '% 26' so shift won't be negative
          */
 
-        int shift = 26 - (this.key % 26);
+        int shift = 26 - this.key;
 
         for (char c : this.cipherText.toCharArray()) {
             if (c != ' ') { // to preserve space characters
