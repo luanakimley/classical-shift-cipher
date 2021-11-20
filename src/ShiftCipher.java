@@ -112,9 +112,9 @@ public class ShiftCipher {
 
         for (int i=1; i <= 26; i++) { // Loops through all possible keys
             this.key = i;
-            decryptKnownKey();
+            decryptKnownKey(); // decrypt with every key
             String temp = this.decryptedText;
-            if (temp.contains(word)) { // if the text contains word it is the answer
+            if (temp.contains(word)) { // if the text contains word it is the answer, set discovered key and decrypted text
                 tempKey = i;
                 result = temp;
             }
