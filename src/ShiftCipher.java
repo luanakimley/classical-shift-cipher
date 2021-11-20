@@ -8,11 +8,14 @@ public class ShiftCipher {
 
     /**
      * ShiftCipher constructor for ShiftCipher with known key
-     * @param key key for decryption
+     * @param key key for decryption (must be a positive value)
      * @param cipherText text that needs to be decrypted
      */
     public ShiftCipher(int key, String cipherText) {
-        this.key = key;
+        if (key > 0)
+            this.key = key;
+        if (key > 26)
+            this.key %= key;
         this.cipherText = cipherText;
     }
 
@@ -76,25 +79,24 @@ public class ShiftCipher {
      * Decrypt cipher text with known key
      */
     public void decryptKnownKey() {
-        StringBuilder result = new StringBuilder();
-        this.cipherText = this.cipherText.toUpperCase();
+            StringBuilder result = new StringBuilder();
+            this.cipherText = this.cipherText.toUpperCase();
 
-        /*
-         * use 26 - key instead of using negative keys so that it won't have a problem when looping back
-         */
+            /*
+             * use 26 - key instead of using negative keys so that it won't have a problem when looping back
+             */
 
-        int shift = 26 - this.key;
+            int shift = 26 - (this.key % 26);
 
-        for (char c : this.cipherText.toCharArray()) {
-            if (c != ' ') { // to preserve space characters
-                result.append((char) (((int) c + shift - 'A') % 26 + 'A')); // Modular arithmetic algorithm to decrypt text
+            for (char c : this.cipherText.toCharArray()) {
+                if (c != ' ') { // to preserve space characters
+                    result.append((char) (((int) c + shift - 'A') % 26 + 'A')); // Modular arithmetic algorithm to decrypt text
+                } else { // if character is space, add without modifying anything
+                    result.append(c);
+                }
             }
-            else { // if character is space, add without modifying anything
-                result.append(c);
-            }
-        }
 
-        this.decryptedText = result.toString();
+            this.decryptedText = result.toString();
     }
 
 

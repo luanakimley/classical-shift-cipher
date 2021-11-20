@@ -224,7 +224,7 @@ public class Menu {
     /**
      * This method allows the user to input a number and checks if the number is
      * in the range
-     *
+     * Reference: used for Programming project in year 1
      * @param min minimum limit of numbers in the range
      * @param max maximum limit of numbers in the range
      * @param prompt prompt message
