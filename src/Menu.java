@@ -52,7 +52,7 @@ public class Menu {
      * this method shows the options that are available to the user
      * if they want to decrypt from a file
      * It guides the user on what should be in the text file and
-     * an option between decryption using a known key and using an exhaustive key
+     * an option between decryption using a known key and using an exhaustive key.
      */
     public void displayDecryptFromFileMenu() {
         System.out.println();
