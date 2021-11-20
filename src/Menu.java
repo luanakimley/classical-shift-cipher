@@ -4,7 +4,15 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+
 public class Menu {
+    /**
+     * Menu method to allow the user to input options
+     * first set of options is whether to decrypt from a file or from own message
+     * It as a min and max to allow you to pick how many inputs needed.
+     * Also has a prompt to prompt the user to input their option and an invalid message
+     *
+     */
     public void mainMenu() {
         displayMainMenu();
         try {
@@ -29,6 +37,9 @@ public class Menu {
         }
     }
 
+    /**
+     * This method displays the title of the menu and shows options in which the user can choose
+     */
     public void displayMainMenu() {
         System.out.println("\n**** CLASSICAL SHIFT CIPHER MENU ****");
         System.out.println("** OPTIONS **");
@@ -37,6 +48,12 @@ public class Menu {
                 "3. Quit");
     }
 
+    /**
+     * this method shows the options that are available to the user
+     * if they want to decrypt from a file
+     * It guides the user on what should be in the text file and
+     * an option between decryption using a known key and using an exhaustive key
+     */
     public void displayDecryptFromFileMenu() {
         System.out.println();
         System.out.println("**** DECRYPT MESSAGE FROM TEXT FILE ****");
@@ -45,6 +62,10 @@ public class Menu {
         System.out.println("Line 2 of text file will contain cipher text that needs to be decrypted using exhaustive search");
     }
 
+    /**
+     * allows the user to choose whether wanting to decrypt using known key,
+     * exhaustive key or go back to main menu
+     */
     public void displayDecryptFromFileMenuOptions() {
         System.out.println();
         System.out.println("**** DECRYPT MESSAGE FROM TEXT FILE ****");
@@ -54,6 +75,10 @@ public class Menu {
         System.out.println("3. Back to main menu");
     }
 
+    /**
+     * allows the user to choose which way they would like their own message
+     * decrypted either through known key, exhaustive key or back to main menu
+     */
     public void displayDecryptOwnMessageMenu() {
         System.out.println();
         System.out.println("**** DECRYPT YOUR OWN MESSAGE ****");
@@ -63,7 +88,14 @@ public class Menu {
         System.out.println("3. Back to main menu");
     }
 
-
+    /**
+     * allows the user to decrypt from a file.
+     * The user can input their own file name they wish to choose.
+     * The file must have two texts they wish to decrypt from
+     * If it doesn't include two texts it will output an error likewise
+     * if the file name isn't found
+     *
+     */
     public void menuDecryptFromFile() {
         displayDecryptFromFileMenu();
         Scanner keyboard = new Scanner(System.in);
@@ -85,6 +117,15 @@ public class Menu {
         }
     }
 
+    /**
+     * Allows the user to choose their option
+     * Allows the user to input the key they want to decrypt the message by
+     * and output the two decrypted text
+     * Directs the user back to main menu
+     *
+     * @param ct1
+     * @param ct2
+     */
     public void menuDecryptFromFileOptions(String ct1, String ct2) {
         displayDecryptFromFileMenuOptions();
 
@@ -122,6 +163,13 @@ public class Menu {
         }
     }
 
+    /**
+     * Allows the user to decrypt their own message that they enter
+     * First option allows the user to decrypt their own message with a key they choose
+     * Second option allows the user to decrypt using an exhaustive key
+     * The user needs to input the word that will be in the decrypted text to allow the
+     * program to discover the key
+     */
     public void menuDecryptOwnMessage() {
         displayDecryptOwnMessageMenu();
 
@@ -136,6 +184,7 @@ public class Menu {
                         String ciphertext1 = keyboard.nextLine();
                         System.out.println("Enter key:");
                         int key = keyboard.nextInt();
+                        keyboard.nextLine();
                         ShiftCipher sc1 = new ShiftCipher(key, ciphertext1);
                         sc1.decryptKnownKey();
                         System.out.println("Cipher text: " + sc1.getCipherText());
