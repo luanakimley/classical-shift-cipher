@@ -4,12 +4,11 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-
 public class Menu {
     /**
      * Menu method to allow the user to input options
      * first set of options is whether to decrypt from a file or from own message
-     * It as a min and max to allow you to pick how many inputs needed.
+     * It has a min and max to allow you to pick how many inputs needed.
      * Also has a prompt to prompt the user to input their option and an invalid message
      *
      */
@@ -52,7 +51,7 @@ public class Menu {
      * this method shows the options that are available to the user
      * if they want to decrypt from a file
      * It guides the user on what should be in the text file and
-     * an option between decryption using a known key and using an exhaustive key.
+     * an option between decryption using a known key and using an exhaustive key
      */
     public void displayDecryptFromFileMenu() {
         System.out.println();
@@ -87,6 +86,7 @@ public class Menu {
         System.out.println("2. Decrypt using exhaustive search");
         System.out.println("3. Back to main menu");
     }
+
 
     /**
      * allows the user to decrypt from a file.
@@ -123,8 +123,8 @@ public class Menu {
      * and output the two decrypted text
      * Directs the user back to main menu
      *
-     * @param ct1
-     * @param ct2
+     * @param ct1 cipher text that needs to be decrypted with known key
+     * @param ct2 cipher text that needs to be decrypted with exhaustive key
      */
     public void menuDecryptFromFileOptions(String ct1, String ct2) {
         displayDecryptFromFileMenuOptions();
@@ -136,21 +136,25 @@ public class Menu {
             while (option != 3) {
                 switch (option) {
                     case 1:
-                        System.out.println("Enter key: ");
-                        int key = keyboard.nextInt();
+                        int key = inputValidInt(1, 25, "Enter key: ", "Invalid key");
                         ShiftCipher sc1 = new ShiftCipher(key, ct1);
-                        sc1.decryptKnownKey();
                         System.out.println("Cipher text: " + sc1.getCipherText());
+                        sc1.decryptKnownKey();
                         System.out.println("Decrypted text: " + sc1.getDecryptedText());
                         break;
                     case 2:
                         ShiftCipher sc2 = new ShiftCipher(ct2);
                         System.out.println("Enter a word that the decrypted cipher text will contain: ");
-                        String word = keyboard.next();
-                        sc2.decryptExhaustiveKeySearch(word);
+                        String word = keyboard.nextLine();
                         System.out.println("Cipher text: " + sc2.getCipherText());
-                        System.out.println("Discovered key: " + sc2.getKey());
-                        System.out.println("Decrypted text: " + sc2.getDecryptedText());
+                        sc2.decryptExhaustiveKeySearch(word);
+                        if (sc2.getKey() > 0) {
+                            System.out.println("Discovered key: " + sc2.getKey());
+                            System.out.println("Decrypted text: " + sc2.getDecryptedText());
+                        }
+                        else {
+                            System.out.println("Unable to decrypt");
+                        }
                         break;
                 }
                 displayDecryptFromFileMenuOptions();
@@ -182,24 +186,27 @@ public class Menu {
                     case 1:
                         System.out.println("Enter cipher text:");
                         String ciphertext1 = keyboard.nextLine();
-                        System.out.println("Enter key:");
-                        int key = keyboard.nextInt();
-                        keyboard.nextLine();
+                        int key = inputValidInt(1, 25, "Enter key: ", "Invalid key");
                         ShiftCipher sc1 = new ShiftCipher(key, ciphertext1);
-                        sc1.decryptKnownKey();
                         System.out.println("Cipher text: " + sc1.getCipherText());
+                        sc1.decryptKnownKey();
                         System.out.println("Decrypted text: " + sc1.getDecryptedText());
                         break;
                     case 2:
                         System.out.println("Enter cipher text:");
                         String ciphertext2 = keyboard.nextLine();
-                        ShiftCipher sc2 = new ShiftCipher(ciphertext2);
                         System.out.println("Enter word that the decrypted cipher text will contain:");
                         String word = keyboard.nextLine();
-                        sc2.decryptExhaustiveKeySearch(word);
+                        ShiftCipher sc2 = new ShiftCipher(ciphertext2);
                         System.out.println("Cipher text: " + sc2.getCipherText());
-                        System.out.println("Discovered key: " + sc2.getKey());
-                        System.out.println("Decrypted text: " + sc2.getDecryptedText());
+                        sc2.decryptExhaustiveKeySearch(word);
+                        if (sc2.getKey() > 0) {
+                            System.out.println("Discovered key: " + sc2.getKey());
+                            System.out.println("Decrypted text: " + sc2.getDecryptedText());
+                        }
+                        else {
+                            System.out.println("Unable to decrypt");
+                        }
                         break;
                 }
                 displayDecryptOwnMessageMenu();
